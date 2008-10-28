@@ -8,6 +8,7 @@ Group:		Libraries
 Source0:	http://liblqr.wikidot.com/local--files/en:download-page/%{name}-1-%{version}.tar.bz2
 # Source0-md5:	05098608069be8b7dfdba515f2020ad9
 URL:		http://liblqr.wikidot.com/
+BuildRequires:	autoconf
 BuildRequires:	glib2-devel >= 2.0.0
 BuildRequires:	pkgconfig
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -50,6 +51,7 @@ Statyczna biblioteka lqr.
 %setup -q -n %{name}-1-%{version}
 
 %build
+%{__autoconf}
 %configure \
 	--enable-static
 %{__make} \
