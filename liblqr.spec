@@ -3,14 +3,17 @@ Summary(pl.UTF-8):	LiquidRescale - łatwa w użyciu biblioteka do skalowania prz
 Name:		liblqr
 Version:	0.4.1
 Release:	1
-License:	GPL v3
+License:	LGPL v3
 Group:		Libraries
 Source0:	http://liblqr.wikidot.com/local--files/en:download-page/%{name}-1-%{version}.tar.bz2
 # Source0-md5:	0e24ed3c9fcdcb111062640764d7b87a
 URL:		http://liblqr.wikidot.com/
-BuildRequires:	autoconf
-BuildRequires:	glib2-devel >= 2.0.0
+BuildRequires:	autoconf >= 2.63
+BuildRequires:	automake
+BuildRequires:	glib2-devel >= 1:2.8.0
+BuildRequires:	libtool >= 2:2.0
 BuildRequires:	pkgconfig
+Requires:	glib2 >= 1:2.8.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -27,7 +30,7 @@ Summary:	Header files for lqr library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki lqr
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	glib2-devel >= 2.0.0
+Requires:	glib2-devel >= 1:2.8.0
 
 %description devel
 Header files for lqr library.
@@ -51,11 +54,14 @@ Statyczna biblioteka lqr.
 %setup -q -n %{name}-1-%{version}
 
 %build
+%{__libtoolize}
+%{__aclocal}
 %{__autoconf}
+%{__autoheader}
+%{__automake}
 %configure \
 	--enable-static
-%{__make} \
-	liblqr_1_la_LIBADD='$(GLIB_LIBS) -lm'
+%{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -71,7 +77,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc AUTHORS ChangeLog README
+%doc AUTHORS ChangeLog NEWS README TODO
 %attr(755,root,root) %{_libdir}/liblqr-1.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/liblqr-1.so.0
 
