@@ -53,6 +53,10 @@ Statyczna biblioteka lqr.
 %prep
 %setup -q -n %{name}-1-%{version}
 
+%if "%{cc_version}" < "4.0"
+%{__sed} -i -e 's,-fvisibility=\\"hidden\\",,' configure.ac
+%endif
+
 %build
 %{__libtoolize}
 %{__aclocal}
