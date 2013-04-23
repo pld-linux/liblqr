@@ -1,12 +1,13 @@
 Summary:	LiquidRescale - easy to use C/C++ seam carving library
 Summary(pl.UTF-8):	LiquidRescale - łatwa w użyciu biblioteka do skalowania przez wycinanie szwów
 Name:		liblqr
-Version:	0.4.1
-Release:	2
+Version:	0.4.2
+Release:	1
 License:	LGPL v3
 Group:		Libraries
 Source0:	http://liblqr.wikidot.com/local--files/en:download-page/%{name}-1-%{version}.tar.bz2
-# Source0-md5:	0e24ed3c9fcdcb111062640764d7b87a
+# Source0-md5:	915643d993da97e10665d48c0bf8f3d0
+Patch0:		%{name}-am.patch
 URL:		http://liblqr.wikidot.com/
 BuildRequires:	autoconf >= 2.63
 BuildRequires:	automake
@@ -52,6 +53,7 @@ Statyczna biblioteka lqr.
 
 %prep
 %setup -q -n %{name}-1-%{version}
+%patch0 -p1
 
 %if "%{cc_version}" < "4.0"
 %{__sed} -i -e 's,-fvisibility=\\"hidden\\",,' configure.ac
