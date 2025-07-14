@@ -53,7 +53,7 @@ Statyczna biblioteka lqr.
 
 %prep
 %setup -q -n %{name}-1-%{version}
-%patch0 -p1
+%patch -P0 -p1
 
 %if "%{cc_version}" < "4.0"
 %{__sed} -i -e 's,-fvisibility=\\"hidden\\",,' configure.ac
