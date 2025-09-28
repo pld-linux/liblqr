@@ -1,16 +1,18 @@
 Summary:	LiquidRescale - easy to use C/C++ seam carving library
 Summary(pl.UTF-8):	LiquidRescale - łatwa w użyciu biblioteka do skalowania przez wycinanie szwów
 Name:		liblqr
-Version:	0.4.2
-Release:	4
+Version:	0.4.3
+Release:	1
 License:	LGPL v3
 Group:		Libraries
-Source0:	http://liblqr.wikidot.com/local--files/en:download-page/%{name}-1-%{version}.tar.bz2
-# Source0-md5:	915643d993da97e10665d48c0bf8f3d0
+#Source0Download: https://github.com/carlobaldassi/liblqr/tags
+Source0:	https://github.com/carlobaldassi/liblqr/archive/v%{version}/%{name}-%{version}.tar.gz
+# Source0-md5:	c460fe171d2e5449559365b89c709a5e
 Patch0:		%{name}-am.patch
 URL:		http://liblqr.wikidot.com/
-BuildRequires:	autoconf >= 2.63
-BuildRequires:	automake
+BuildRequires:	autoconf >= 2.68
+BuildRequires:	automake >= 1:1.11
+BuildRequires:	gcc >= 6:4
 BuildRequires:	glib2-devel >= 1:2.8.0
 BuildRequires:	libtool >= 2:2.0
 BuildRequires:	pkgconfig
@@ -52,12 +54,8 @@ Static lqr library.
 Statyczna biblioteka lqr.
 
 %prep
-%setup -q -n %{name}-1-%{version}
+%setup -q -n %{name}-%{version}
 %patch -P0 -p1
-
-%if "%{cc_version}" < "4.0"
-%{__sed} -i -e 's,-fvisibility=\\"hidden\\",,' configure.ac
-%endif
 
 %build
 %{__libtoolize}
@@ -88,11 +86,11 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog NEWS README TODO
 %attr(755,root,root) %{_libdir}/liblqr-1.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/liblqr-1.so.0
+%ghost %{_libdir}/liblqr-1.so.0
 
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/liblqr-1.so
+%{_libdir}/liblqr-1.so
 %{_includedir}/lqr-1
 %{_pkgconfigdir}/lqr-1.pc
 
